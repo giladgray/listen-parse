@@ -1,0 +1,49 @@
+@mixin font-smoothing($which) {
+	-webkit-font-smoothing: $which;
+	-moz-font-smoothing: $which;
+	-ms-font-smoothing: $which;
+	-o-font-smoothing: $which;
+	font-smoothing: $which;
+}
+
+@mixin transition($transition) {
+	-webkit-transition: $transition;
+	-moz-transition: $transition;
+	-ms-transition: $transition;
+	-o-transition: $transition;
+	transition: $transition;
+}
+
+@mixin transform($transform) {
+	-webkit-transform: $transform;
+	-moz-transform: $transform;
+	-ms-transform: $transform;
+	-o-transform: $transform;
+	transform: $transform;
+}
+
+@mixin scale($scale) {
+	@include transform(scale($scale));
+}
+
+@mixin shadow-black($opacity) {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, $opacity);
+}
+
+@mixin stretch($offset-top: 0, $offset-right: 0, $offset-bottom: 0, $offset-left: 0) {
+  position: absolute;
+  @if $offset-top { top: $offset-top; }
+  @if $offset-bottom { bottom: $offset-bottom; }
+  @if $offset-left { left: $offset-left; }
+  @if $offset-right { right: $offset-right; }
+}
+
+@mixin colorize($base-color) {
+  $dark: $base-color;
+  $light: lighten($dark, 20%);
+  @include gradientBar($light, $dark);
+  background-color: darken($dark, 1%);
+  border: 1px solid lighten($dark, 5%);
+  border-top-color: lighten($light, 10%);
+  border-bottom-color: darken($dark, 10%);
+}

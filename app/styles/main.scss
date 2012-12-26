@@ -3,6 +3,7 @@
 
 $listWidth: 500px;
 $padding: 16px;
+$smallPadding: 10px;
 
 body {
 	background: #eee;
@@ -104,39 +105,35 @@ body {
 			.edit {
 				display: block;
 				width: $listWidth;
-				padding: ($padding - 3) ($padding - 1); //13px 17px 12px 17px;
-				// margin: 0 0 0 43px;
+				padding: ($padding - 3) ($padding - 1);
 			}
 			.view {
 				display: none;
 			}
 		}
 
-		.item-destroy {
+		.options {
 			display: none;
-			position: absolute;
-			top: 0;
-			right: 10px;
-			bottom: 0;
-			width: 40px;
-			height: 40px;
-			margin: auto 0;
-			font-size: 22px;
-			color: #a88a8a;
-			@include transition(all 0.2s);
-
-			&:hover {
-				text-shadow: 0 0 1px #000,
-				0 0 10px rgba(199, 107, 107, 0.8);
-				@include scale(1.3);
+			@include stretch($smallPadding, $smallPadding, $smallPadding, false);
+			
+			> * { 
+				float: right; 
+				@include square(40px);
+				margin-left: $smallPadding;
 			}
 
-			&:after {
-				content: "\D7";
+			.btn-group .btn {
+				height: 20.5px;
+				padding: 0;
+			}
+
+			.item-destroy {
+				padding: 0;
+				font-size: 20px;
 			}
 		}
 
-		&:hover .item-destroy {
+		&:hover .options {
 			display: block;
 		}
 	}

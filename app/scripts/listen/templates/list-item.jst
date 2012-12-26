@@ -1,5 +1,11 @@
 <div class="view">
 	<label class="item-content"><%= content %></label>
-	<button class="item-destroy"></button>
+	<div class="options">
+		<button class="btn btn-danger item-destroy" title="delete item"><i class="icon-remove"></i></button>
+		<span class="btn-group btn-group-vertical" style="display:none">
+			<button class="btn move-up" title="move item up"><i class="icon-chevron-up"></i></button>
+			<button class="btn move-down" title="move item down"><i class="icon-chevron-down"></i></button>
+		</span>
+	</div>
 </div>
 <input class="edit" value="<%= content %>">
