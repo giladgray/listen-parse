@@ -1,4 +1,4 @@
-define ['listen/list-model', 'text!tmpl/list-item.jst', 'parse'], (Listen, itemTemplate) ->  
+define ['jquery', 'listen/list-model', 'text!tmpl/list-item.jst', 'parse'], ($, Listen, itemTemplate) ->  
 	# The DOM element for a list item...
 	ItemView = Parse.View.extend
 		
@@ -36,8 +36,9 @@ define ['listen/list-model', 'text!tmpl/list-item.jst', 'parse'], (Listen, itemT
 		
 		# Close the 'editing' mode, saving changes to the todo.
 		close: ->
-			@model.save content: @input.val()
-			$(@el).removeClass 'editing'
+			if @$el.hasClass 'editing'
+				@$el.removeClass 'editing'
+				@model.save content: @input.val() 
 
 		# If you hit `enter`, we're through editing the item.
 		updateOnEnter: (e) ->

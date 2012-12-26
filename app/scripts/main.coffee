@@ -9,7 +9,7 @@ requirejs.config
     
 
 # start it all up! note that Backbone and Parse are not configured for requirejs and instead define globals, which works fine too.
-requirejs ['jquery.min', 'underscore-min', 'listen/list-model', 'listen/list-view', 'backbone-min', 'parse'], ( $, _, Listen, ListView ) ->
+requirejs ['jquery.min', 'underscore-min', 'listen/list-model', 'listen/list-view', 'parse'], ( $, _, Listen, ListView ) ->
     console.log "we're in."
 
     # Initialize Parse! app name: listen
@@ -23,4 +23,5 @@ requirejs ['jquery.min', 'underscore-min', 'listen/list-model', 'listen/list-vie
     listView = new ListView
         model: new Listen.ListCollection() # get all ListItems
         title: 'My First List'
+        tagline: 'a playground for testing'
     listView.render();
