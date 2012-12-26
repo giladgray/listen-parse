@@ -12,7 +12,7 @@ module.exports = function( grunt ) {
 
     // specify an alternate install location for Bower
     bower: {
-      dir: 'app/components'
+      dir: 'packages'
     },
 
     // Coffee to JS compilation
@@ -36,6 +36,7 @@ module.exports = function( grunt ) {
           sass_dir: 'app/styles',
           images_dir: 'app/images',
           javascripts_dir: 'temp/scripts',
+          relative_assets: true,
           force: true
         }
       }
@@ -68,6 +69,7 @@ module.exports = function( grunt ) {
           'app/*.html',
           'app/styles/**/*.css',
           'app/scripts/**/*.js',
+          'app/scripts/**/*.jst',
           'app/images/**/*'
         ],
         tasks: 'reload'
