@@ -1,13 +1,16 @@
-<a href="/" class="btn btn-primary pull-left">Listen</a>
+<a href="/" class="btn btn-primary home">Listen</a>
 <h1 id="title">
 	<%= title %><br/>
-	<small><%= tagline || '&nbsp;' %>
+	<small><%= tagline || '&nbsp;' %></small>
 </h1>
-<header id="header">
-	<input type="text" id="newItem" placeholder="Add a new item...">
-</header>
+<div class="list-body">
+	<header id="header">
+		<input type="text" id="newItem" placeholder="Add a new item..." autocomplete="off">
+		<button class="icon right good input-submit"><i class="icon-arrow-right"></i></button>
+	</header>
 
-<ul id="list"></ul>
+	<ul id="list"></ul>
 
-<footer id="footer">
-</footer>
+	<footer id="footer">
+	</footer>
+</div>

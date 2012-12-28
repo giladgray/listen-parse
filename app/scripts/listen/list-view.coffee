@@ -35,10 +35,6 @@ define ['listen/list-model', 'listen/item-view', 'text!tmpl/list.jst', 'text!tmp
 
 				@list.fetch()
 
-				# AJAX events to show/hide spinner in upper left corner
-				$.bind 'ajaxStart', -> $('#title').spin left: 0
-				$.bind 'ajaxStop', -> $('#title').spin false
-
 			render: ->
 				# render() just needs to update statistics, once we have some.
 

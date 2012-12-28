@@ -7,7 +7,8 @@ define ['text!tmpl/list.jst', 'text!tmpl/index-item.jst', 'listen/item-view', 'p
 			className: 'list'
 
 			events:
-				'keypress #newItem': 'createOnEnter',
+				'keypress #newItem': 'createOnEnter'
+				'click .input-submit': 'createOnEnter'
 				'click a': 'navigate'
 
 			initialize: ->
@@ -30,16 +31,13 @@ define ['text!tmpl/list.jst', 'text!tmpl/index-item.jst', 'listen/item-view', 'p
 
 				@list.fetch()
 
-				# AJAX events to show/hide spinner in upper left corner
-				$.bind 'ajaxStart', -> $('#title').spin left: 0
-				$.bind 'ajaxStop', -> $('#title').spin false
-
 			render: ->
 				# render() just needs to update statistics, once we have some.
 
 			# If you hit return in the main input field, create new ListItem model
 			createOnEnter: (e) ->
-				return unless e.keyCode is 13
+				# gtfo if key pressed and it isn't ENTER   -or-   text field is blank
+				return if (e.keyCode and e.keyCode isnt 13) or (/^$/.test @input.val())
 				@list.create
 					title: @input.val()
 					# user:   Parse.User.current()

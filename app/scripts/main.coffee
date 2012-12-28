@@ -11,6 +11,8 @@ requirejs.config
 # start it all up! note that Backbone and Parse are not configured for requirejs and instead define globals, which works fine too.
 requirejs ['jquery.min', 'underscore-min', 'listen/router', 'listen/list-model', 'listen/list-view', 'parse'], 
     ( $, _, ListenRouter, Listen, ListView ) ->
+        $ = jQuery
+        
         console.log "we're in."
 
         # Initialize Parse! app name: listen
@@ -22,6 +24,10 @@ requirejs ['jquery.min', 'underscore-min', 'listen/router', 'listen/list-model',
         window.Listen = 
             router: new ListenRouter()
         Parse.history.start(pushState: true)
+
+        # AJAX events to show/hide spinner in upper left corner
+        $.bind 'ajaxStart', -> $('#title').spin left: 0
+        $.bind 'ajaxStop', -> $('#title').spin false
         
         # create and render a default list view  
         # listView = new ListView

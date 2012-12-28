@@ -4,6 +4,7 @@
 $listWidth: 500px;
 $padding: 16px;
 $smallPadding: 10px;
+$buttonSize: 40px;
 
 body {
 	background: #eee;
@@ -11,7 +12,52 @@ body {
 	padding: 0 25px;
 }
 
-.container { width: $listWidth; }
+.container { 
+	width: $listWidth; 
+	position: relative;
+}
+
+/* a simple square button containing a large FontAwesome icon.
+ * normally, just the icon is visible. on hover, a solid rounded
+ * background appears. change the background color to give
+ * buttons different meaning. */
+button.icon {
+	// set exact sizing
+	@include square($buttonSize);
+	line-height: $buttonSize;
+	padding: 0;
+	// center vertically in parent element
+	margin-top: -$buttonSize / 2;
+	position: absolute;
+	top: 50%;
+	z-index: 5;
+	// big bold appearance, no background
+	font-size: 30px;
+	color: #aaa;
+	background: transparent;
+	border: none;
+	@include border-radius(3px);
+	@include transition(all 0.25s);
+	// rounded rectangle background appears on hover
+	&:hover {
+		color: #333;
+		background: #aaa;
+	}
+	&:active { color: orange; }
+}
+// control absolute positioning - which side
+.icon.left  { left:  $padding; }
+.icon.right { right: $padding; }
+
+// two special styles: good (green), bad (red)
+button.icon.good:hover {
+	color: white;
+	background: $green;
+}
+button.icon.bad:hover {
+	color: white;
+	background: $red;
+}
 
 #newItem, .edit {
 	position: relative;
@@ -29,22 +75,37 @@ body {
 	box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
 	@include box-sizing(border-box);
 	@include font-smoothing(antialiased);
-}
-
-#newItem {
-	// padding: 16px 16px 16px 60px;
-	// border: none;
-	// background: rgba(0, 0, 0, 0.02);
+	@include border-radius(0);
 	z-index: 2;
-	box-shadow: none;
+
+	&:focus {
+		box-shadow: 0px 1px 15px 2px rgba(0, 111, 204, 0.5);
+	}
 }
 
-#list, #header {
+#header {
+	position: relative;
+
+	.input-submit { opacity: 0.2; }
+
+	input:focus + .input-submit, .input-submit:active { opacity: 1.0; }
+}
+
+#list, #newItem {
 	margin: auto;
+	box-shadow: 0px 1px 15px 2px rgba(0, 0, 0, 0.5);
+
+}
+
+.btn.home { 
+	@include stretch($padding, false, false, 0);
 }
 
 #list {
+	background: white;
 	list-style-type: none;
+	margin: 0 10px;
+	padding-top: 3px;
 
 	li {
 		text-align: left;
@@ -81,13 +142,6 @@ body {
 
 		.options {
 			display: none;
-			@include stretch($smallPadding, $smallPadding, $smallPadding, false);
-			
-			> * { 
-				float: right; 
-				@include square(40px);
-				margin-left: $smallPadding;
-			}
 
 			.btn-group .btn {
 				height: 20.5px;
