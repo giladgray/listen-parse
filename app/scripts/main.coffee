@@ -9,19 +9,23 @@ requirejs.config
     
 
 # start it all up! note that Backbone and Parse are not configured for requirejs and instead define globals, which works fine too.
-requirejs ['jquery.min', 'underscore-min', 'listen/list-model', 'listen/list-view', 'parse'], ( $, _, Listen, ListView ) ->
-    console.log "we're in."
+requirejs ['jquery.min', 'underscore-min', 'listen/router', 'listen/list-model', 'listen/list-view', 'parse'], 
+    ( $, _, ListenRouter, Listen, ListView ) ->
+        console.log "we're in."
 
-    # Initialize Parse! app name: listen
-    Parse.initialize("9l30htqviXhkKi1joswe7qXREsXshiZbDIYddrct", "pYvFENQ2UKkQEkK0cPGSmVRiqxqa3trDqoW7kkDQ")
+        # Initialize Parse! app name: listen
+        Parse.initialize("9l30htqviXhkKi1joswe7qXREsXshiZbDIYddrct", "pYvFENQ2UKkQEkK0cPGSmVRiqxqa3trDqoW7kkDQ")
 
-    # make a new list
-    # list = new Listen.List()
-    # list.query = new Parse.Query(Listen.ListItem)
-    
-    # create and render a default list view  
-    listView = new ListView
-        model: new Listen.ListCollection() # get all ListItems
-        title: 'My First List'
-        tagline: 'a playground for testing'
-    listView.render();
+        # make a new list
+        # list = new Listen.List()
+        # list.query = new Parse.Query(Listen.ListItem)
+        window.Listen = 
+            router: new ListenRouter()
+        Parse.history.start(pushState: true)
+        
+        # create and render a default list view  
+        # listView = new ListView
+        #     model: new Listen.ListCollection() # get all ListItems
+        #     title: 'My First List'
+        #     tagline: 'a playground for testing'
+        # listView.render();

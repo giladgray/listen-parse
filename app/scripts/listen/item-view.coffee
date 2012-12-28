@@ -1,12 +1,8 @@
 define ['jquery', 'listen/list-model', 'text!tmpl/list-item.jst', 'parse'], ($, Listen, itemTemplate) ->  
 	# The DOM element for a list item...
 	ItemView = Parse.View.extend
-		
 		#... is a list tag.
 		tagName: 'li'
-		
-		# Cache the template function for a single item.
-		template: _.template(itemTemplate)
 		
 		# The DOM events specific to an item.
 		events:
@@ -19,6 +15,10 @@ define ['jquery', 'listen/list-model', 'text!tmpl/list-item.jst', 'parse'], ($, 
 		# a one-to-one correspondence between a ListItem and an ItemView in this
 		# app, we set a direct reference on the model for convenience.
 		initialize: ->
+			# Cache the template function for a single item.
+			# template comes from parent view, can be function or string.
+			@template = if _.isFunction(@options.template) then @options.template else _.template(@options.template)
+
 			_.bindAll this, 'render', 'close', 'remove'
 			@model.bind 'change', @render
 			@model.bind 'destroy', @remove
