@@ -2,3 +2,4 @@ temp
 dist
 .sass-cache
 .DS_store
+npm-debug.log
