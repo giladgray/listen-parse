@@ -1,12 +1,20 @@
 define ['underscore-min', 'parse'], (_) ->  
 
+	PrivacyTypes = 
+		PRIVATE: 'private'
+		PUBLIC : 'public'
+		SHARED : 'shared'
+	
 	# model for a list itself
 	List = Parse.Object.extend
 		className: 'List'
 
 		defaults: 
+			user: ''
 			title: ''
 			tagline: ''
+			privacy: PrivacyTypes.PRIVATE
+			collaborative: false
 
 		initialize: ->
 
@@ -59,6 +67,7 @@ define ['underscore-min', 'parse'], (_) ->
 		ListItem : ListItem
 		ListCollection : ListCollection
 		ListItemCollection : ListItemCollection
+		PrivacyTypes : PrivacyTypes
 
 		createItemCollection : (list) ->
 			collection = new ListItemCollection()

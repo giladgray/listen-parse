@@ -4,12 +4,14 @@ define ['listen/list-model', 'listen/item-view', 'text!tmpl/list.jst', 'text!tmp
 		ListView = Parse.View.extend
 			template: _.template(listTemplate)
 			itemTemplate: _.template(listItemTemplate)
+			actionsTemplate: _.template(listActionsTemplate)
 
 			className: 'list'
 
 			events:
-				'keypress #newItem': 'createOnEnter',
+				'keypress #newItem': 'createOnEnter'
 				'click a': 'navigate'
+				'click .privacy button': 'changePrivacy'
 
 			initialize: ->
 				@template = _.template(@options.template or listTemplate)
@@ -17,7 +19,7 @@ define ['listen/list-model', 'listen/item-view', 'text!tmpl/list.jst', 'text!tmp
 
 				# render the template initially, then we don't need to touch it again
 				@$el.html @template(@model.toJSON())
-				@$('#list-actions').html _.template(listActionsTemplate)()
+				@$('#actions').html @actionsTemplate(@model.toJSON())
 
 				# scope instance functions correctly
 				_.bindAll this, 'addOne', 'addAll', 'addSome', 'render', 'createOnEnter' #, 'toggleAllComplete', 'logOut'
@@ -69,6 +71,12 @@ define ['listen/list-model', 'listen/item-view', 'text!tmpl/list.jst', 'text!tmp
 				@listEl.html("");
 				@list.chain().filter(filter).each (item) -> @addOne(item)
 
+			changePrivacy: (e) ->
+				oldPrivacy = @model.get('privacy')
+				newPrivacy = e.currentTarget.attributes['title'].value
+				@model.save privacy: newPrivacy
+				@$('#actions').html @actionsTemplate(@model.toJSON())
+				
 			navigate: (e) ->
 				unless e.currentTarget.classList.contains('dropdown-toggle')
 					e.preventDefault()

@@ -14,7 +14,6 @@ define ['text!tmpl/list.jst', 'text!tmpl/index-item.jst', 'text!tmpl/list-action
 			initialize: ->
 				# render the template initially, then we don't need to touch it again
 				@$el.html @template(@options)
-				@$('#list-actions').html _.template(listActionsTemplate)()
 
 				# scope instance functions correctly
 				_.bindAll this, 'addOne', 'addAll', 'addSome', 'render', 'createOnEnter' #, 'toggleAllComplete', 'logOut'
