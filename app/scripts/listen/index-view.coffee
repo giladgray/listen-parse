@@ -1,5 +1,5 @@
-define ['text!tmpl/list.jst', 'text!tmpl/index-item.jst', 'listen/item-view', 'parse'], 
-	(indexTemplate, indexItemTemplate, ItemView) ->
+define ['text!tmpl/list.jst', 'text!tmpl/index-item.jst', 'text!tmpl/list-actions.jst', 'listen/item-view'], 
+	(indexTemplate, indexItemTemplate, listActionsTemplate, ItemView) ->
 		IndexView = Parse.View.extend
 			template: _.template(indexTemplate)
 			itemTemplate: _.template(indexItemTemplate)
@@ -14,6 +14,7 @@ define ['text!tmpl/list.jst', 'text!tmpl/index-item.jst', 'listen/item-view', 'p
 			initialize: ->
 				# render the template initially, then we don't need to touch it again
 				@$el.html @template(@options)
+				@$('#list-actions').html _.template(listActionsTemplate)()
 
 				# scope instance functions correctly
 				_.bindAll this, 'addOne', 'addAll', 'addSome', 'render', 'createOnEnter' #, 'toggleAllComplete', 'logOut'
@@ -53,6 +54,7 @@ define ['text!tmpl/list.jst', 'text!tmpl/index-item.jst', 'listen/item-view', 'p
 						view = new ItemView 
 							model: item
 							template: @itemTemplate
+							confirm: true
 						@listEl.append(view.render().el)
 
 			# Add all items in the List collection at once.
@@ -66,7 +68,8 @@ define ['text!tmpl/list.jst', 'text!tmpl/index-item.jst', 'listen/item-view', 'p
 				@list.chain().filter(filter).each (item) -> @addOne(item)
 
 			navigate: (e) ->
-			    e.preventDefault()
-			    href = e.currentTarget.attributes['href'].value
-			    console.log "navigating to #{href}"
-			    window.Listen.router.navigate href, trigger: true
+				unless e.currentTarget.classList.contains('dropdown-toggle')
+				    e.preventDefault()
+				    href = e.currentTarget.attributes['href'].value
+				    console.log "navigating to #{href}"
+				    window.Listen.router.navigate href, trigger: true

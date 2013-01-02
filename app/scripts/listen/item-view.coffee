@@ -46,4 +46,6 @@ define ['listen/list-model', 'text!tmpl/list-item.jst'], (Listen, itemTemplate) 
 		
 		# Remove the item, destroy the model.
 		clear: ->
-			@model.destroy()
+			# prompt the user if the confirm option is true (weird inverted if)
+			unless @options.confirm and not confirm('Are you sure you want to delete this item?')
+				@model.destroy()

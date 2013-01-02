@@ -57,6 +57,27 @@ button.icon.good:hover {
 button.icon.bad:hover {
 	color: white;
 	background: $red;
+
+#list-actions {
+	.left  { left:  0; right: auto; }
+	.right { right: 0; left:  auto; }
+
+	.dropdown-menu {
+		position: absolute;
+		top: -3px;
+		right: -12px;
+		padding: 0;
+		text-align: left;
+		min-width: auto;
+		@include transition(all 0.2s);
+
+		li { 
+			margin: 10px;
+		}
+		button.icon { position: static; }
+
+		a { padding: 5px 10px; }
+	}
 }
 
 #newItem, .edit {

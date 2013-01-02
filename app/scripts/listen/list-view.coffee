@@ -1,5 +1,5 @@
-define ['listen/list-model', 'listen/item-view', 'text!tmpl/list.jst', 'text!tmpl/list-item.jst', 'text!tmpl/new-item.jst'], 
-	(Listen, ItemView, listTemplate, listItemTemplate, newItemTemplate) ->  
+define ['listen/list-model', 'listen/item-view', 'text!tmpl/list.jst', 'text!tmpl/list-item.jst', 'text!tmpl/new-item.jst', 'text!tmpl/list-actions.jst',], 
+	(Listen, ItemView, listTemplate, listItemTemplate, newItemTemplate, listActionsTemplate) ->  
 		# ListView class displays ordered collection of ListItems
 		ListView = Parse.View.extend
 			template: _.template(listTemplate)
@@ -17,6 +17,7 @@ define ['listen/list-model', 'listen/item-view', 'text!tmpl/list.jst', 'text!tmp
 
 				# render the template initially, then we don't need to touch it again
 				@$el.html @template(@model.toJSON())
+				@$('#list-actions').html _.template(listActionsTemplate)()
 
 				# scope instance functions correctly
 				_.bindAll this, 'addOne', 'addAll', 'addSome', 'render', 'createOnEnter' #, 'toggleAllComplete', 'logOut'
@@ -69,8 +70,9 @@ define ['listen/list-model', 'listen/item-view', 'text!tmpl/list.jst', 'text!tmp
 				@list.chain().filter(filter).each (item) -> @addOne(item)
 
 			navigate: (e) ->
-		    e.preventDefault()
-		    href = e.currentTarget.attributes['href'].value
-		    console.log "navigating to #{href}"
-		    window.Listen.router.navigate href, trigger: true
+				unless e.currentTarget.classList.contains('dropdown-toggle')
+					e.preventDefault()
+					href = e.currentTarget.attributes['href'].value
+					console.log "navigating to #{href}"
+					window.Listen.router.navigate href, trigger: true
 
