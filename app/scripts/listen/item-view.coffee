@@ -1,4 +1,4 @@
-define ['jquery', 'listen/list-model', 'text!tmpl/list-item.jst', 'parse'], ($, Listen, itemTemplate) ->  
+define ['listen/list-model', 'text!tmpl/list-item.jst'], (Listen, itemTemplate) ->  
 	# The DOM element for a list item...
 	ItemView = Parse.View.extend
 		#... is a list tag.

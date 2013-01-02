@@ -6,11 +6,13 @@ requirejs.config
     paths: 
         listen: '../listen'
         tmpl: '../listen/templates'
+
+    deps: ['jquery.min', 'underscore-min', 'parse', 'bootstrap/bootstrap-button', 'bootstrap/bootstrap-dropdown']
     
 
 # start it all up! note that Backbone and Parse are not configured for requirejs and instead define globals, which works fine too.
-requirejs ['jquery.min', 'underscore-min', 'listen/router', 'listen/list-model', 'listen/list-view', 'parse'], 
-    ( $, _, ListenRouter, Listen, ListView ) ->
+requirejs ['listen/router', 'listen/list-model', 'listen/list-view'], 
+    ( ListenRouter, Listen, ListView ) ->
         $ = jQuery
         
         console.log "we're in."
