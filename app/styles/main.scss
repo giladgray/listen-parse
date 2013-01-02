@@ -21,42 +21,60 @@ body {
  * normally, just the icon is visible. on hover, a solid rounded
  * background appears. change the background color to give
  * buttons different meaning. */
-button.icon {
+button.icon, a.icon {
 	// set exact sizing
 	@include square($buttonSize);
 	line-height: $buttonSize;
 	padding: 0;
-	// center vertically in parent element
-	margin-top: -$buttonSize / 2;
-	position: absolute;
-	top: 50%;
 	z-index: 5;
+	position: absolute;
 	// big bold appearance, no background
 	font-size: 30px;
+	text-decoration: none;
 	color: #aaa;
 	background: transparent;
 	border: none;
 	@include border-radius(3px);
 	@include transition(all 0.25s);
 	// rounded rectangle background appears on hover
-	&:hover {
-		color: #333;
-		background: #aaa;
-	}
+	
 	&:active { color: orange; }
-}
-// control absolute positioning - which side
-.icon.left  { left:  $padding; }
-.icon.right { right: $padding; }
 
-// two special styles: good (green), bad (red)
-button.icon.good:hover {
-	color: white;
-	background: $green;
+	// control absolute positioning - which side
+	// &.top 	{ top:   0; }
+	&.left  { left:  $padding; right: auto; }
+	&.right { right: $padding; left:  auto; }
+	&.middle {
+		// center vertically in parent element
+		margin-top: -$buttonSize / 2;
+		top: 50%;
+	}
+
+	
 }
-button.icon.bad:hover {
-	color: white;
-	background: $red;
+
+.icon:hover, .icon.active, .open > .icon, {
+	color: #333;
+	background: #aaa;
+
+	// special color styles: good (green), bad (red), okay (blue), warn (yellow)
+	&.good {
+		color: white;
+		background: $green;
+	}
+	&.bad {
+		color: white;
+		background: $red;
+	}
+	&.okay {
+		color: white;
+		background: $blue;
+	}
+	&.warn {
+		color: white;
+		background: $yellow;
+	}
+}
 
 #list-actions {
 	.left  { left:  0; right: auto; }
@@ -134,6 +152,7 @@ button.icon.bad:hover {
 		font-size: 24px;
 		border-bottom: 1px dotted #ccc;
 		padding: $padding;
+			line-height: 1.2;
 
 		&:last-child { border-bottom: none; }
 		
@@ -141,7 +160,6 @@ button.icon.bad:hover {
 			font-size: inherit;
 			word-break: break-word;
 			display: inline-block;
-			line-height: 1.2;
 			@include transition(color 0.4s);
 		}
 
@@ -153,7 +171,6 @@ button.icon.bad:hover {
 
 			.edit {
 				display: block;
-				width: $listWidth;
 				padding: ($padding - 3) ($padding - 1);
 			}
 			.view {
