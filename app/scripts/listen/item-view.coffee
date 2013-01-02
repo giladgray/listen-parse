@@ -7,7 +7,7 @@ define ['listen/list-model', 'text!tmpl/list-item.jst'], (Listen, itemTemplate) 
 		# The DOM events specific to an item.
 		events:
 			'dblclick': 'edit'
-			'click .item-destroy': 'clear'
+			'click .icon-remove': 'clear'
 			'keypress .edit': 'updateOnEnter'
 			'blur .edit': 'close'
 		

@@ -1,10 +1,9 @@
-<a href="/" class="icon okay left home" title="take me home"><i class="icon-home"></i></a>
+<a href="/" class="icon-home okay left" title="take me home"></a>
 <div class="btn-group right">
-	<a href="#" class="btn icon warn right share dropdown-toggle" data-toggle="dropdown" title="sharing options">
-		<i class="icon-lock"></i></a>
-	<ul class="dropdown-menu right">
-		<li><button href="#" class="icon bad" title="private"><i class="icon-lock"></i></button></li>
-		<li><button href="#" class="icon warn" title="shared"><i class="icon-key"></i></button></li>
-		<li><button href="#" class="icon good" title="public"><i class="icon-unlock"></i></button></li>
+	<a href="#" id="privacy" class="btn icon-<%= privacy %> right dropdown-toggle" data-toggle="dropdown" title="sharing options"></a>
+	<ul class="dropdown-menu right privacy">
+		<% _.each(['private', 'shared', 'public'], function(type) { %>
+			<li><button href="#" class="icon-<%= type %> <%= privacy === type ? 'active' : ''%>" title="<%= type %>" /></li>
+		<% }); %>
 	</ul>
 </div>

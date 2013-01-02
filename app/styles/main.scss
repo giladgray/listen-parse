@@ -17,73 +17,16 @@ body {
 	position: relative;
 }
 
-/* a simple square button containing a large FontAwesome icon.
- * normally, just the icon is visible. on hover, a solid rounded
- * background appears. change the background color to give
- * buttons different meaning. */
-button.icon, a.icon {
-	// set exact sizing
-	@include square($buttonSize);
-	line-height: $buttonSize;
-	padding: 0;
-	z-index: 5;
-	position: absolute;
-	// big bold appearance, no background
-	font-size: 30px;
-	text-decoration: none;
-	color: #aaa;
-	background: transparent;
-	border: none;
-	@include border-radius(3px);
-	@include transition(all 0.25s);
-	// rounded rectangle background appears on hover
-	
-	&:active { color: orange; }
+@import "buttons";
 
-	// control absolute positioning - which side
-	// &.top 	{ top:   0; }
-	&.left  { left:  $padding; right: auto; }
-	&.right { right: $padding; left:  auto; }
-	&.middle {
-		// center vertically in parent element
-		margin-top: -$buttonSize / 2;
-		top: 50%;
-	}
-
-	
-}
-
-.icon:hover, .icon.active, .open > .icon, {
-	color: #333;
-	background: #aaa;
-
-	// special color styles: good (green), bad (red), okay (blue), warn (yellow)
-	&.good {
-		color: white;
-		background: $green;
-	}
-	&.bad {
-		color: white;
-		background: $red;
-	}
-	&.okay {
-		color: white;
-		background: $blue;
-	}
-	&.warn {
-		color: white;
-		background: $yellow;
-	}
-}
-
-#list-actions {
+#actions {
 	.left  { left:  0; right: auto; }
 	.right { right: 0; left:  auto; }
 
 	.dropdown-menu {
 		position: absolute;
 		top: -3px;
-		right: -12px;
+		right: -11px;
 		padding: 0;
 		text-align: left;
 		min-width: auto;
@@ -92,7 +35,7 @@ button.icon, a.icon {
 		li { 
 			margin: 10px;
 		}
-		button.icon { position: static; }
+		button { position: static; }
 
 		a { padding: 5px 10px; }
 	}
