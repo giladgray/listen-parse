@@ -161,6 +161,12 @@
           left: (o.left == 'auto' ? tp.x-ep.x + (target.offsetWidth >> 1) : parseInt(o.left, 10) + mid) + 'px',
           top: (o.top == 'auto' ? tp.y-ep.y + (target.offsetHeight >> 1) : parseInt(o.top, 10) + mid)  + 'px'
         })
+        if(o.right !== undefined) {
+          css(el, {
+            float: 'right',
+            left: '-' + (o.right == 'auto' ? mid : parseInt(o.right, 10) + mid) + 'px'
+          })
+        }
       }
 
       el.setAttribute('aria-role', 'progressbar')

@@ -7,7 +7,7 @@ requirejs.config
         listen: '../listen'
         tmpl: '../listen/templates'
 
-    deps: ['jquery.min', 'underscore-min', 'parse', 'bootstrap/bootstrap-button', 'bootstrap/bootstrap-dropdown']
+    deps: ['jquery.min', 'underscore-min', 'parse', 'spin', 'bootstrap/bootstrap-button', 'bootstrap/bootstrap-dropdown']
     
 
 # start it all up! note that Backbone and Parse are not configured for requirejs and instead define globals, which works fine too.
