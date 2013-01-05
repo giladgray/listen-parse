@@ -1,8 +1,14 @@
 <div id="actions">
 </div>
 <h1 id="title">
-	<%= title %><br/>
-	<small><%= tagline || '&nbsp;' %></small>
+	<div class="editable" data-field="title">
+		<div class="view"><%= title %></div>
+		<input class="edit" id="titleEdit" maxlength="24" value="<%= title %>">
+	</div>
+	<small class="editable" data-field="tagline">
+		<div class="view"><%= tagline || '&nbsp;' %></div>
+		<input class="edit" id="taglineEdit" maxlength="48" value="<%= tagline || '' %>">
+	</small>
 </h1>
 <div class="list-body">
 	<header id="header">

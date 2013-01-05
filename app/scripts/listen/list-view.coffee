@@ -12,6 +12,9 @@ define ['listen/list-model', 'listen/item-view', 'text!tmpl/list.jst', 'text!tmp
 				'keypress #newItem': 'createOnEnter'
 				'click a': 'navigate'
 				'click .privacy button': 'changePrivacy'
+				'dblclick .editable': 'edit'
+				'keypress .edit': 'updateOnEnter'
+				'blur .edit': 'close'
 
 			initialize: ->
 				@template = _.template(@options.template or listTemplate)
@@ -76,6 +79,26 @@ define ['listen/list-model', 'listen/item-view', 'text!tmpl/list.jst', 'text!tmp
 				newPrivacy = e.currentTarget.attributes['title'].value
 				@model.save privacy: newPrivacy
 				@$('#actions').html @actionsTemplate(@model.toJSON())
+
+			# Switch this view into 'editing' mode, displaying the input field.
+			edit: (e) ->
+				console.log 'editing', e.currentTarget
+				el = $(e.currentTarget).addClass 'editing'
+				el.find('input').focus()
+			
+			# Close the 'editing' mode, saving changes to the todo.
+			close: (e) ->
+				el = $(e.currentTarget).parent()
+				if el.hasClass 'editing'
+					el.removeClass 'editing'
+					value = el.find('input').val() 
+					console.log "setting #{el.data('field')} to #{value}"
+					@model.save el.data('field'), value
+					el.find('.view').text(value)
+
+			# If you hit `enter`, we're through editing the item.
+			updateOnEnter: (e) ->
+				@close(e)  if e.keyCode is 13
 				
 			navigate: (e) ->
 				unless e.currentTarget.classList.contains('dropdown-toggle')

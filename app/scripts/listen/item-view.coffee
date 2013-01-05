@@ -3,6 +3,7 @@ define ['listen/list-model', 'text!tmpl/list-item.jst'], (Listen, itemTemplate) 
 	ItemView = Parse.View.extend
 		#... is a list tag.
 		tagName: 'li'
+		className: 'editable'
 		
 		# The DOM events specific to an item.
 		events:
@@ -38,7 +39,11 @@ define ['listen/list-model', 'text!tmpl/list-item.jst'], (Listen, itemTemplate) 
 		close: ->
 			if @$el.hasClass 'editing'
 				@$el.removeClass 'editing'
-				@model.save content: @input.val() 
+				# show a spinner while the request is pending (too fast to see...)
+				# TODO: move these options somewhere else!
+				@$el.spin lines: 9, width: 2, length: 4, radius: 4, right: 26
+				@model.save { content: @input.val() },
+					success: => @$el.spin false
 
 		# If you hit `enter`, we're through editing the item.
 		updateOnEnter: (e) ->
