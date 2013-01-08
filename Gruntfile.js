@@ -170,8 +170,17 @@ module.exports = function( grunt ) {
       // no minification, is done by the min task
       optimize: 'none',
       baseUrl: './scripts',
-      wrap: true
+      wrap: true,
+      name: 'config'
     },
+
+    // attempt at server rewrite rules. this does not work because yeoman doesn't
+    // support such a thing yet. see: https://github.com/yeoman/yeoman/issues/468
+    server: {
+      rewrite: [
+        '^[\w\d\/-_]*$ / [L]'
+      ]
+    }
   });
 
   // Alias the `test` task to run the `mocha` task instead

@@ -1,0 +1,9 @@
+<a href="#" class="icon-home okay left" title="take me home"></a>
+<div class="btn-group right">
+	<a href="#" id="privacy" class="btn icon-<%= privacy %> right dropdown-toggle" data-toggle="dropdown" data-bypass title="sharing options"></a>
+	<ul class="dropdown-menu right privacy">
+		<% _.each(['private', 'shared', 'public'], function(type) { %>
+			<li><button href="#" class="icon-<%= type %> <%= privacy === type ? 'active' : ''%>" title="<%= type %>" rel="tooltip" data-placement="right" /></li>
+		<% }); %>
+	</ul>
+</div>

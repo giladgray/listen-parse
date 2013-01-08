@@ -1,6 +1,6 @@
-define ['listen/list-model', 'text!tmpl/list-item.jst'], (Listen, itemTemplate) ->  
+define ['listen', 'models/list-model', 'vendor/spin'], (Listen) ->   # 'text!tmpl/list-item.jst'], 
 	# The DOM element for a list item...
-	ItemView = Parse.View.extend
+	Listen.ItemView = Parse.View.extend
 		#... is a list tag.
 		tagName: 'li'
 		className: 'editable'
@@ -18,18 +18,23 @@ define ['listen/list-model', 'text!tmpl/list-item.jst'], (Listen, itemTemplate) 
 		initialize: ->
 			# Cache the template function for a single item.
 			# template comes from parent view, can be function or string.
-			@template = if _.isFunction(@options.template) then @options.template else _.template(@options.template)
+			@template = @options.template #if _.isFunction(@options.template) then @options.template else _.template(@options.template)
 
 			_.bindAll this, 'render', 'close', 'remove'
 			@model.bind 'change', @render
 			@model.bind 'destroy', @remove
 		
 		# Re-render the contents of the todo item.
-		render: ->
-			$(@el).html @template(@model.toJSON())
+		# render: ->
+		# 	$(@el).html @template(@model.toJSON())
+		# 	@input = @$('.edit')
+		# 	@
+
+		afterRender: -> 
 			@input = @$('.edit')
-			@
 		
+		serialize: -> @model.toJSON()
+
 		# Switch this view into 'editing' mode, displaying the input field.
 		edit: ->
 			$(@el).addClass 'editing'

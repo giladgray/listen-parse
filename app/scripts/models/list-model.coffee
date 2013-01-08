@@ -1,4 +1,4 @@
-define ['underscore-min', 'parse'], (_) ->  
+define ['listen'], (Listen) ->  
 
 	PrivacyTypes = 
 		PRIVATE: 'private'
@@ -6,7 +6,7 @@ define ['underscore-min', 'parse'], (_) ->
 		SHARED : 'shared'
 	
 	# model for a list itself
-	List = Parse.Object.extend
+	Listen.List = Parse.Object.extend
 		className: 'List'
 
 		defaults: 
@@ -24,7 +24,7 @@ define ['underscore-min', 'parse'], (_) ->
 			# query = (new Parse.Query(ListItem)).equalTo('list', @)
 			# items.fetch()
 
-			@set 'items', new ListItemCollection(list: @)
+			@set 'items', new Listen.ListItemCollection(list: @)
 			# items
 
 		createItem: (options) ->
@@ -33,7 +33,7 @@ define ['underscore-min', 'parse'], (_) ->
 
 
 	# model for an item in a list
-	ListItem = Parse.Object.extend
+	Listen.ListItem = Parse.Object.extend
 		className: 'ListItem'
 
 		defaults:
@@ -42,8 +42,8 @@ define ['underscore-min', 'parse'], (_) ->
 
 
 	# collection of items in a list (contained within List?)
-	ListItemCollection = Parse.Collection.extend
-		model: ListItem
+	Listen.ListItemCollection = Parse.Collection.extend
+		model: Listen.ListItem
 
 		# initialize: (options) ->
 			# if options
@@ -56,23 +56,24 @@ define ['underscore-min', 'parse'], (_) ->
 		# list items are sorted by their original insertion order.
 		comparator: (item) -> item.get('order')
 
-	ListCollection = Parse.Collection.extend
-		model: List
+	Listen.ListCollection = Parse.Collection.extend
+		model: Listen.List
+
+	Listen.createItemCollection = (list) ->
+		collection = new Listen.ListItemCollection()
+		collection.query = new Parse.Query(Listen.ListItem)
+		collection.query.equalTo('list', list)
+
+		collection
 
 	# return an object containing all the classes defined here.
 	# this is a separate step so classes can refer to each other in this file.
 	# TODO: make each class a separate file? can you group multiple files into one module?
-	return {
-		List : List
-		ListItem : ListItem
-		ListCollection : ListCollection
-		ListItemCollection : ListItemCollection
-		PrivacyTypes : PrivacyTypes
+	# return {
+	# 	List : List
+	# 	ListItem : ListItem
+	# 	ListCollection : ListCollection
+	# 	ListItemCollection : ListItemCollection
+	# 	PrivacyTypes : PrivacyTypes
 
-		createItemCollection : (list) ->
-			collection = new ListItemCollection()
-			collection.query = new Parse.Query(ListItem)
-			collection.query.equalTo('list', list)
-
-			collection
-	}
+	# }

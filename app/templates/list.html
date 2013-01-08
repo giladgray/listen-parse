@@ -2,7 +2,7 @@
 </div>
 <h1 id="title">
 	<div class="editable" data-field="title">
-		<div class="view"><%= title %></div>
+		<div class="view"><%= title || '&nbsp;' %></div>
 		<input class="edit" id="titleEdit" maxlength="24" value="<%= title %>">
 	</div>
 	<small class="editable" data-field="tagline">
@@ -13,7 +13,7 @@
 <div class="list-body">
 	<header id="header">
 		<input type="text" id="newItem" placeholder="Add a new item..." autocomplete="off">
-		<button class="icon-arrow-right good right middle input-submit" />
+		<button class="icon-arrow-right good right middle input-submit" title="create" />
 	</header>
 
 	<ul id="list"></ul>

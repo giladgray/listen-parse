@@ -6,6 +6,8 @@ $padding: 16px;
 $smallPadding: 10px;
 $buttonSize: 40px;
 
+@import "buttons";
+
 body {
 	background: #eee;
 	text-align: center;
@@ -16,8 +18,6 @@ body {
 	width: $listWidth; 
 	position: relative;
 }
-
-@import "buttons";
 
 #title {
 	.view { 
