@@ -31,10 +31,17 @@ define ['listen', 'models/list-model', 'vendor/spin'], (Listen) ->   # 'text!tmp
 		serialize: -> 
 			$.extend @model.toJSON(),
 				editable: @isEditable()
+				username: @getUsername()
+				updated: new Date(@model.updatedAt).toLocaleDateString()
 
 		isEditable: ->
 			# does the current user have write access to this model?
 			@model.getACL().getWriteAccess(Parse.User.current()) or false
+
+		getUsername: ->
+			if @model.get('user').id is Parse.User.current().id
+				'<strong>you</strong>'
+			else @model.get('user').get('username')
 
 		# Switch this view into 'editing' mode, displaying the input field.
 		edit: ->

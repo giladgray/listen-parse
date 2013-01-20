@@ -40,6 +40,8 @@ define ['listen'], (Listen) ->
 			content: ''
 			order: 0
 
+		comparator: (item) -> item.get('createdAt')
+
 
 	# collection of items in a list (contained within List?)
 	Listen.ListItemCollection = Parse.Collection.extend
@@ -62,7 +64,7 @@ define ['listen'], (Listen) ->
 	Listen.createItemCollection = (list) ->
 		collection = new Listen.ListItemCollection()
 		collection.query = new Parse.Query(Listen.ListItem)
-		collection.query.equalTo('list', list)
+		collection.query.equalTo('list', list).include 'user'
 
 		collection
 

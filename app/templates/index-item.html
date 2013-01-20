@@ -1,14 +1,21 @@
 <div class="view">
-<% if(typeof objectId === 'undefined') { %>
-	<label><i class="icon-spinner icon-spin"></i><%= title %></label>
-<% } else { %>
-	<a href="#list/<%= objectId %>"><%= title %></a>
-<% } %>	
-	<% if(privacy === 'private') { %><i class='icon-private' title='private list'></i><%}%>
+	<label class="title">
+	<% if(typeof objectId === 'undefined') { %>
+		<%= title %><i class="icon-spinner icon-spin"></i>
+	<% } else { %>
+		<a href="#list/<%= objectId %>"><%= title %></a>
+		<% if(privacy === 'private') { %><i class='icon-private' title='private list'></i><%}%>
+	<% } %>	
+	</label>
 	<% if(editable) { %>
-	<div class="options">
-		<button class="icon-remove right middle bad item-destroy" title="delete item" />
+	<div class="options pull-right">
+		<button class="icon-remove bad right middle" title="delete item" />
 	</div>
 	<% } %>
+	<label class="details">
+		by <a href="#user/<%= username %>"><%= username %></a> 
+		on <%= updated %>
+	</label>
 </div>
+
 <input class="edit" value="<%= title %>">

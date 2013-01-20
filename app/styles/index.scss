@@ -148,14 +148,23 @@ body > .container {
 
 		&:last-child { border-bottom: none; }
 		
-		label, a {
+		label {
 			margin: 0;
 			padding: $padding;
 			font-size: inherit;
 			line-height: inherit;
 			word-break: break-word;
-			display: inline-block;
+			// display: inline-block;
 			@include transition(color 0.4s);
+
+			&.title {  
+				padding-bottom: $padding / 2;
+			}
+			&.details {
+				padding-top: 0;
+				font-size: 60%;
+				opacity: 0.7;
+			}
 		}
 
 		i { 

@@ -10,6 +10,8 @@ define ['listen', 'views/item-view'], (Listen) ->
 
 		initialize: ->
 			@list = @model
+			@list.query = new Parse.Query(Listen.List)
+			@list.query.include('user').descending('updatedAt')
 
 			# collection event to update UI
 			@list.bind 'all', @render, @

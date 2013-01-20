@@ -7,7 +7,7 @@ define ['listen', 'views/item-view', 'models/list-model'], (Listen) ->
 			# only lists visible to the current user will be returned
 			@lists = new Listen.ListCollection()
 			@lists.query = new Parse.Query(Listen.List)
-			@lists.query.equalTo('user', @model)
+			@lists.query.equalTo('user', @model).include('user')
 			# standard re-render event
 			@lists.bind 'all', @render, @
 			# aaaand fire that query
