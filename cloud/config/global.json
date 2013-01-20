@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "_default": {
+            "link": "listen"
+        }, 
+        "listen": {
+            "applicationId": "9l30htqviXhkKi1joswe7qXREsXshiZbDIYddrct", 
+            "masterKey": "PKpnM6IeZU8fqFGjdN318W3dVPSb1ln7hlHRComN"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.1.15"
+    }
+}
