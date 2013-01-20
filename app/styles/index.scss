@@ -8,6 +8,11 @@ $iconColor: #aaa;
 @import "mixins";
 @import "buttons";
 
+@include keyframes(slide-in) {
+	0% { height: 0; }
+	100%: { height: 100%; }
+}
+
 body {
 	background: #eee;
 	text-align: center;
@@ -15,7 +20,8 @@ body {
 }
 
 .container { 
-	width: $listWidth !important; 
+	width: auto !important;
+	max-width: $listWidth;
 	position: relative;
 }
 
@@ -101,9 +107,9 @@ body > .container {
 #header {
 	position: relative;
 
-	.input-submit { opacity: 0.2; }
+	// .input-submit { opacity: 0.2; }
 
-	input:focus + .input-submit, .input-submit:active { opacity: 1.0; }
+	// input:focus + .input-submit, .input-submit:active { opacity: 1.0; }
 }
 
 #list, #newItem {
@@ -145,6 +151,7 @@ body > .container {
 		font-size: 24px;
 		border-bottom: 1px dotted #ccc;
 		line-height: 1.2;
+		@include animate(slide-in 4s);
 
 		&:last-child { border-bottom: none; }
 		
@@ -169,7 +176,7 @@ body > .container {
 
 		i { 
 			color: $iconColor; 
-			margin-left: -$smallPadding;
+			// margin-left: -$smallPadding;
 		}
 
 		.edit {
@@ -177,23 +184,31 @@ body > .container {
 		}
 
 		.options {
-			display: none;
 
 			.btn-group .btn {
 				height: 20.5px;
 				padding: 0;
 			}
 
-			.item-destroy {
+			.icon-remove {
 				padding: 0;
 				font-size: 20px;
 			}
 		}
 
-		&:hover .options {
-			display: block;
+		// hide list-item options on larger displays.
+		// they look really nice appearing on hover.
+		// TODO: better solution for mobile + tablet (hoverless) devices.
+		@media screen and (min-width: $listWidth + 50px) {
+			.options {
+				display: none;
+			}
+			&:hover .options {
+				display: block;
+			}
 		}
 	}
+
 }
 
 .login {

@@ -47,3 +47,26 @@
   border-top-color: lighten($light, 10%);
   border-bottom-color: darken($dark, 10%);
 }
+
+// keyframes mixin from [https://gist.github.com/1607696]
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  } 
+}
+
+@mixin animate($what) {
+  -moz-animation: $what;
+  -o-animation: $what;
+  -webkit-animation: $what;
+  animation: $what;
+}
