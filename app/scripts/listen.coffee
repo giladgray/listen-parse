@@ -3,7 +3,10 @@ define ['jquery', 'lodash', 'parse', 'plugins/backbone.layoutmanager'], ($, _, P
   # Provide a global location to place configuration settings and module creation.
 
   # The root path to run the application.
-  app = root: '/'
+  app = 
+    root: '/'
+    spin: (classes='') ->
+      "<i class='icon-spinner icon-spin #{classes}'></i>"
   
   # Localize or create a new JavaScript Template object.
   JST = window.JST = window.JST or {}

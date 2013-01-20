@@ -7,7 +7,7 @@ require ['Listen', 'router'], (Listen, Router) ->
   # Trigger the initial route and enable HTML5 History API support, set the
   # root folder to '/' by default.  Change in Listen.js.
   Parse.history.start
-    pushState: true
+    # pushState: true
     root: Listen.root
 
   # Listen.fetch()
