@@ -1,6 +1,7 @@
 <div id="actions">
 </div>
-<h1 id="title">
+<h1 class="title">
+<% if(editable) { %>
 	<div class="editable" data-field="title">
 		<div class="view"><%= title || '&nbsp;' %></div>
 		<input class="edit" id="titleEdit" maxlength="24" value="<%= title %>">
@@ -9,14 +10,21 @@
 		<div class="view"><%= tagline || '&nbsp;' %></div>
 		<input class="edit" id="taglineEdit" maxlength="48" value="<%= tagline || '' %>">
 	</small>
+<% } else { %>
+	<div class="view"><%= title || '&nbsp;' %></div>
+	<small class="view"><%= tagline || '&nbsp;' %></small>
+<% } %>
 </h1>
 <div class="list-body">
+<% if(editable) { %>
 	<header id="header">
 		<input type="text" id="newItem" placeholder="Add a new item..." autocomplete="off">
-		<button class="icon-arrow-right good right middle input-submit" title="create" />
+		<button class="icon-plus good right middle input-submit" title="create" />
 	</header>
+<% } %>
 
-	<ul id="list"></ul>
+	<ul id="list">
+	</ul>
 
 	<footer id="footer">
 	</footer>

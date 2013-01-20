@@ -15,34 +15,34 @@ define ['listen', 'models/list-model', 'views/item-view'], (Listen) ->
 			'blur .edit': 'close'
 
 		initialize: ->
-			# scope instance functions correctly
-			_.bindAll this, 'addOne', 'addAll', 'addSome', 'render', 'createOnEnter' #, 'toggleAllComplete', 'logOut'
-
 			# cache selectors
 			@input = @$('#newItem')
 			@listEl = @$('#list')
 
-			@model.on 'change', @render
+			@model.on 'change', @render, @
 
 			# create a collection that loads ListItems from this list
 			@list = Listen.createItemCollection(@model)
 
-			# collection events to update UI
-			@list.bind 'add',   @addOne
-			@list.bind 'reset', @addAll
-			@list.bind 'all',   @render
+			# collection event to update UI
+			@list.bind 'all', @render, @
 
 			@list.fetch()
 
-		serialize: -> @model.toJSON()
 
-		# render: ->
-			# render() just needs to update statistics, once we have some.
+		serialize: -> 
+			$.extend @model.toJSON(),
+				editable: @isEditable()
+
+		isEditable: ->
+			@model.getACL().getWriteAccess(Parse.User.current())
 
 		beforeRender: ->
 			@setView '#actions', new Parse.View
 				template: @actionsTemplate
-				serialize: => privacy: @model.get('privacy')
+				serialize: => 
+					privacy: @model.get('privacy')
+					editable: @isEditable()
 			# Iterate over the passed collection and create a view for each item.
 			@list.each (model) =>
 				# Pass the sample data to the new SomeItem View.
@@ -50,29 +50,21 @@ define ['listen', 'models/list-model', 'views/item-view'], (Listen) ->
 					model: model
 					template: @itemTemplate
 
+
 		# If you hit return in the main input field, create new ListItem model
 		createOnEnter: (e) ->
 			return unless e.keyCode is 13
-			@list.create 
-				content:  @$('#newItem').val()
-				order:    @list.nextOrder()
-				list:     @model
-				# user:   Parse.User.current()
-				# ACL:    new Parse.ACL(Parse.User.current())
+			acl = new Parse.ACL(Parse.User.current())
+			acl.setPublicReadAccess(true)
+			acl.setPublicWriteAccess(false)
+			@list.create
+				content: @$('#newItem').val()
+				order:   @list.nextOrder()
+				list:    @model
+				user:    Parse.User.current()
+				ACL:     acl
 			# creating an item triggers the 'add' event bound above
 			@input.val('')
-
-		# Add a single list item to the list by creating a view for it, and
-		# appending its element to the `<ul>`.
-		addOne: (item) -> item.save()
-
-		# Add all items in the List collection at once.
-		addAll: (collection, filter) ->
-			@list.each @addOne
-
-		# Only adds some items, based on a filtering function that is passed in
-		addSome: (filter) ->
-			@list.chain().filter(filter).each (item) -> @addOne(item)
 
 		changePrivacy: (e) ->
 			oldPrivacy = @model.get('privacy')
@@ -82,7 +74,6 @@ define ['listen', 'models/list-model', 'views/item-view'], (Listen) ->
 
 		# Switch this view into 'editing' mode, displaying the input field.
 		edit: (e) ->
-			console.log 'editing', e.currentTarget
 			el = $(e.currentTarget).addClass 'editing'
 			el.find('input').focus()
 		
@@ -94,7 +85,6 @@ define ['listen', 'models/list-model', 'views/item-view'], (Listen) ->
 				value = el.find('input').val() 
 				console.log "setting #{el.data('field')} to #{value}"
 				@model.save el.data('field'), value
-				# el.find('.view').text(value)
 
 		# If you hit `enter`, we're through editing the item.
 		updateOnEnter: (e) ->

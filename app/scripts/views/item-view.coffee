@@ -16,37 +16,36 @@ define ['listen', 'models/list-model', 'vendor/spin'], (Listen) ->   # 'text!tmp
 		# a one-to-one correspondence between a ListItem and an ItemView in this
 		# app, we set a direct reference on the model for convenience.
 		initialize: ->
-			# Cache the template function for a single item.
 			# template comes from parent view, can be function or string.
-			@template = @options.template #if _.isFunction(@options.template) then @options.template else _.template(@options.template)
-
+			# this allows for reuse of this class in many different lists
+			@template = @options.template 
 			_.bindAll this, 'render', 'close', 'remove'
-			@model.bind 'change', @render
+			@model.bind 'change sync', @render
 			@model.bind 'destroy', @remove
-		
-		# Re-render the contents of the todo item.
-		# render: ->
-		# 	$(@el).html @template(@model.toJSON())
-		# 	@input = @$('.edit')
-		# 	@
 
 		afterRender: -> 
 			@input = @$('.edit')
 		
-		serialize: -> @model.toJSON()
+		# contains all model attributes and a value indicating if item
+		# is editable in current context
+		serialize: -> 
+			$.extend @model.toJSON(),
+				editable: @isEditable()
+
+		isEditable: ->
+			# does the current user have write access to this model?
+			@model.getACL().getWriteAccess(Parse.User.current()) or false
 
 		# Switch this view into 'editing' mode, displaying the input field.
 		edit: ->
-			$(@el).addClass 'editing'
-			@input.focus()
+			if @isEditable()
+				$(@el).addClass 'editing'
+				@input.focus()
 		
 		# Close the 'editing' mode, saving changes to the todo.
 		close: ->
 			if @$el.hasClass 'editing'
 				@$el.removeClass 'editing'
-				# show a spinner while the request is pending (too fast to see...)
-				# TODO: move these options somewhere else!
-				@$el.spin lines: 9, width: 2, length: 4, radius: 4, right: 26
 				@model.save { content: @input.val() },
 					success: => @$el.spin false
 

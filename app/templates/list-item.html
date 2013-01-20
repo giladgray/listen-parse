@@ -1,5 +1,8 @@
 <div class="view">
 	<label class="item-content"><%= content %></label>
+	<% if(typeof objectId === 'undefined') { %>
+		<i class="icon-spinner icon-spin right middle"></i>
+	<% } if(editable) { %>
 	<div class="options">
 		<button class="icon-remove right middle bad item-destroy" title="delete item" />
 		<span class="btn-group btn-group-vertical" style="display:none">
@@ -7,5 +10,6 @@
 			<button class="btn move-down" title="move item down"><i class="icon-chevron-down"></i></button>
 		</span>
 	</div>
+	<% } %>
 </div>
-<input class="edit" value="<%= content %>">
+<% if(editable) { %><input class="edit" value="<%= content %>"><% } %>
