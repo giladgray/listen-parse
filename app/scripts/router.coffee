@@ -44,6 +44,8 @@ define ['listen', 'views/index-view', 'views/list-view', 'views/login-view', 'vi
       @list.fetch
         success: =>
           Listen.layout.setView('#contents', new Listen.ListView(model: @list)).render()
+        error: =>
+          Parse.history.navigate '', true
 
     login: ->
       Listen.layout.setView('#contents', new Listen.LoginView()).render()

@@ -57,7 +57,7 @@ a[class^="icon-"], a[class*=" icon-"] {
 	@include square($buttonSize);
 	line-height: $buttonSize;
 	padding: 0;
-	font-size: 30px;
+	font-size: ($buttonSize * 3 / 4);
 	
 	position: absolute;
 	
@@ -65,10 +65,18 @@ a[class^="icon-"], a[class*=" icon-"] {
 	// control absolute positioning - which side
 	&.left  { left:  $padding; right: auto; }
 	&.right { right: $padding; left:  auto; }
+	&.top   { top:   $padding; }
+	&.bottom{ bottom: $padding; }
 	&.middle {
 		// center vertically in parent element
 		margin-top: -$buttonSize / 2;
 		top: 50%;
+	}
+
+	&.small {
+		font-size: $buttonSize / 2;
+		@include square($buttonSize * 3 / 4);
+		line-height: ($buttonSize * 3 / 4);
 	}
 }
 
