@@ -1,36 +1,25 @@
-/* a simple square button containing a large FontAwesome icon.
- * normally, just the icon is visible. on hover, a solid rounded
- * background appears. change the background color to give
- * buttons different meaning. */
-button[class^="icon-"], button[class*=" icon-"],
-a[class^="icon-"], a[class*=" icon-"] {
-	// set exact sizing
-	@include square($buttonSize);
+button, a[class^="icon-"], a[class*=" icon-"] {
+	height: $buttonSize;
 	line-height: $buttonSize;
-	padding: 0;
 	z-index: 5;
-	position: absolute;
+	padding: 0 10px;
+	
 	// big bold appearance, no background
-	font-size: 30px;
+	font-size: 20px;
 	text-decoration: none;
-	color: #aaa;
+	color: $iconColor;
 	background: transparent;
 	border: none;
 	@include border-radius(3px);
 	@include transition(all 0.25s);
-	
 
-	// control absolute positioning - which side
-	&.left  { left:  $padding; right: auto; }
-	&.right { right: $padding; left:  auto; }
-	&.middle {
-		// center vertically in parent element
-		margin-top: -$buttonSize / 2;
-		top: 50%;
+	[class^="icon-"], [class*=" icon-"] { 
+		font-size: 30px; 
+		vertical-align: middle;
 	}
 
 	// rounded rectangle background appears on hover
-	&:hover, &.active {
+	&:hover, &:focus, &.active {
 		color: #333;
 		background: #aaa;
 
@@ -55,6 +44,32 @@ a[class^="icon-"], a[class*=" icon-"] {
 
 	&.active { opacity: 0.6; }
 	&.active:hover {opacity: 1.0; }
+	
+}
+
+/* a simple square button containing a large FontAwesome icon.
+ * normally, just the icon is visible. on hover, a solid rounded
+ * background appears. change the background color to give
+ * buttons different meaning. */
+button[class^="icon-"], button[class*=" icon-"],
+a[class^="icon-"], a[class*=" icon-"] {
+	// set exact sizing
+	@include square($buttonSize);
+	line-height: $buttonSize;
+	padding: 0;
+	font-size: 30px;
+	
+	position: absolute;
+	
+
+	// control absolute positioning - which side
+	&.left  { left:  $padding; right: auto; }
+	&.right { right: $padding; left:  auto; }
+	&.middle {
+		// center vertically in parent element
+		margin-top: -$buttonSize / 2;
+		top: 50%;
+	}
 }
 
 // some special icon classes

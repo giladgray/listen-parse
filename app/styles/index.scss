@@ -1,11 +1,11 @@
-@import "compass_twitter_bootstrap_awesome";
-@import "mixins";
-
 $listWidth: 500px;
 $padding: 16px;
 $smallPadding: 10px;
 $buttonSize: 40px;
+$iconColor: #aaa;
 
+@import "compass_twitter_bootstrap_awesome";
+@import "mixins";
 @import "buttons";
 
 body {
@@ -15,11 +15,21 @@ body {
 }
 
 .container { 
-	width: $listWidth; 
+	width: $listWidth !important; 
 	position: relative;
 }
 
-#title {
+body > .container {
+	margin-top: $navbarHeight;
+}
+
+#navbar {
+	a i {
+		font-size: 24px;
+	}
+}
+
+.title {
 	.view { 
 		padding: 3px 0;
 	}
@@ -28,6 +38,7 @@ body {
 		margin: auto;
 	}
 	small {
+		display: block;
 		.view {
 			padding-bottom: 4px;
 		}
@@ -56,7 +67,7 @@ body {
 	}
 }
 
-#newItem, .edit {
+#newItem, input.edit {
 	position: relative;
 	margin: 0;
 	width: 100%;
@@ -84,7 +95,7 @@ body {
 	padding: $padding;
 	font-size: 24px;
 	text-align: left;
-	// line-height: 
+	line-height: 29px; 
 }
 
 #header {
@@ -138,11 +149,18 @@ body {
 		&:last-child { border-bottom: none; }
 		
 		label, a {
+			margin: 0;
 			padding: $padding;
 			font-size: inherit;
+			line-height: inherit;
 			word-break: break-word;
 			display: inline-block;
 			@include transition(color 0.4s);
+		}
+
+		i { 
+			color: $iconColor; 
+			margin-left: -$smallPadding;
 		}
 
 		.edit {
@@ -167,4 +185,42 @@ body {
 			display: block;
 		}
 	}
+}
+
+.login {
+	.edit {
+		width: 46%;
+		font-size: 20px;
+		padding: $padding 0;
+	}
+
+	.info {
+		@extend small;
+		color: $iconColor;
+		text-align: center;
+		margin-top: 5px;
+	}
+
+	.error {
+		background: $red;
+		color: white;
+		padding: 5px;
+		margin: 0px 4% 10px;
+		border-radius: 6px;
+	}
+
+	.actions { 
+		text-align: right; 
+
+		button {
+			margin-right: 2%;
+			margin-top: 10px;
+		}
+	}
+}
+
+.separator {
+	width: 100%;
+	border: 1px solid $iconColor;
+	margin-bottom: 24px;
 }

@@ -1,18 +1,31 @@
 <header id="header"></header>
 <div class="login">
 	<form class="login-form">
-		<h2>Log In</h2>
+		<h1 class="title">
+			<div class="view">Log In</div>
+			<small class="view">Already one of the cool kids, eh?</small>
+		</h1>
 		<div class="error" style="display:none"></div>
-		<input type="text" id="login-username" placeholder="Username" />
-		<input type="password" id="login-password" placeholder="Password" />
-		<button>Log In</button>
+		<input class="edit" type="text" id="login-username" placeholder="Username" />
+		<input class="edit" type="password" id="login-password" placeholder="Password" />
+		<div class="actions">
+			<button class="good">Validate Identity <i class="icon-signin"></i></button>
+		</div>
 	</form>
 
+	<div class="separator"></div>
+
 	<form class="signup-form">
-		<h2>Sign Up</h2>
+		<h1 class="title">
+			<div class="view">Sign Up</div>
+			<small class="view">Someone wants to join the club!</small>
+		</h1>
 		<div class="error" style="display:none"></div>
-		<input type="text" id="signup-username" placeholder="Username" />
-		<input type="password" id="signup-password" placeholder="Create a Password" />
-		<button>Sign Up</button>
+		<input class="edit" type="text" id="signup-username" placeholder="Pick a Username" />
+		<input class="edit" type="password" id="signup-password" placeholder="Create a Password" />
+		<div class="info">This is literally all the information we need from you.<br/>We'll never ask you for anything else.<br/>You're welcome.</div>
+		<div class="actions">
+			<button class="good">Create Account <i class="icon-edit"></i></button>
+		</div>
 	</form>
 </div>

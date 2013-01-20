@@ -48,9 +48,9 @@ $sansFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $serifFontFamily:       Georgia, "Times New Roman", Times, serif !default;
 $monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace !default;
 
-$baseFontSize:          14px !default;
+$baseFontSize:          18px !default;
 $baseFontFamily:        $sansFontFamily !default;
-$baseLineHeight:        20px !default;
+$baseLineHeight:        24px !default;
 $altFontFamily:         $serifFontFamily !default;
 
 $headingsFontFamily:    inherit !default; // empty to use BS default, $baseFontFamily
@@ -156,8 +156,8 @@ $wellBackground:                  #f5f5f5 !default;
 // -------------------------
 $navbarCollapseWidth:             979px !default;
 
-$navbarHeight:                    40px !default;
-$navbarBackgroundHighlight:       #ffffff !default;
+$navbarHeight:                    50px !default;
+$navbarBackgroundHighlight:       $orange !default;
 $navbarBackground:                darken($navbarBackgroundHighlight, 5%) !default;
 $navbarBorder:                    darken($navbarBackground, 12%) !default;
 

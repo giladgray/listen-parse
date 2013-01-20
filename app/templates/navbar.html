@@ -1,0 +1,11 @@
+<div class="container">
+    <a class="brand" href="#">Listen</a>
+    <ul class="nav pull-right">
+    	<% if(typeof username !== "undefined") { %>
+    		<li><a href="#user/<%= username %>"><%= username %></a></li>
+    		<li><a href="#logout" data-bypass title="sign out"><i class="icon-signout"></i></a></li>
+    	<% } else { %>
+	    	<li><a href="#login">Login / Sign Up</a></li>
+    	<% } %>
+    </ul>
+</div>
